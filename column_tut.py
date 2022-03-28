@@ -19,10 +19,13 @@ new_df = new_df[new_df["price"] > 999]
 new_df["solo_salary"] = new_df["price_per_bed"] / 0.025
 new_df["unit_salary"] = new_df["price"] / 0.025
 
-number = st.number_input("Insert your yearly salary")
+salary = 45000
 
 
-salary = number
+
+
+
+
 new_df["afford"] = np.where(new_df["price_per_bed"] < (salary/12) * 0.3, "affordable", "not affordable")
 #new_df.assign(new_df["affordability"]= "affordable".where(new_df.unit_salary < (salary/12) * 0.3, "not affordable"))
 
@@ -75,16 +78,27 @@ COLOR_BREWER_BLUE_SCALE = [
 
 #print(df.head())
 
+
+
+number = st.number_input("Insert your yearly salary")
+if number == 0:
+    salary = 0
+else:
+    salary = number
+
+show_afford = st.checkbox("show only those properties avaialble to your budget")
+
+if show_afford:
+    new_df = new_df[new_df["afford"] == "affordable"]
+
+
 if st.checkbox('Show raw data'):
     st.subheader('Raw Data')
     st.write(new_df)
-
-
-
 #print(df.info())
 
 
-st.map(new_df)
+#st.map(new_df)
 
 #st.map(df)
 #data = df.to_json(orient='table')
