@@ -3,3 +3,4 @@ pandas==1.4.1
 pydeck==0.7.1
 requests==2.27.1
 streamlit==1.7.0
+pip install -U click==8 
