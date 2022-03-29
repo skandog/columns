@@ -6,7 +6,7 @@ import pydeck as pdk
 st.title("Rental properties in New York City")
 
 ## function to get property locations and data
-#@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)
 def get_df():
     new_df = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/nylatlonv4.csv', na_values= '#DIV/0!')
     new_df = new_df.dropna(axis=0, how='any')
@@ -20,7 +20,7 @@ new_df = get_df()
 
 
 ## shootings data
-#@st.cache
+@st.cache
 def get_crime():
     crime_data = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/NYPD_Shooting_Incident_Data__Year_To_Date_Clean.csv')
     crime_data.columns = crime_data.columns.str.lower()
@@ -35,7 +35,7 @@ def get_trees():
     tree_data = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/Forestry_Tree_Points_clean.csv')
     return tree_data
 
-tree_data = get_trees()
+#tree_data = get_trees()
 
 
 ## colour scale for tree heat map
@@ -104,18 +104,18 @@ column_layer = pdk.Layer(
 )
 
 ## shows tree coverage over the city
-tree_heat = pdk.Layer(
-    "HeatmapLayer",
-    data=tree_data,
-    #data=new_df,
-    opacity=0.9,
-    get_position=["lon", "lat"],
-    aggregation=pdk.types.String("MEAN"),
-    color_range=COLOR_BREWER_BLUE_SCALE,
-    threshold=1,
+#tree_heat = pdk.Layer(
+#    "HeatmapLayer",
+#    data=tree_data,
+#    #data=new_df,
+#    opacity=0.9,
+#    get_position=["lon", "lat"],
+#    aggregation=pdk.types.String("MEAN"),
+#    color_range=COLOR_BREWER_BLUE_SCALE,
+#    threshold=1,
     #get_weight="weight",
-    pickable=True,
-)
+#    pickable=True,
+#)
 
 ## not used
 crime_layer = pdk.Layer(
@@ -173,12 +173,12 @@ r_crime = pdk.Deck(
     map_style=pdk.map_styles.SATELLITE,
 )
 
-r_tree = pdk.Deck(
-    tree_heat,
-    initial_view_state=view,
-    map_provider="mapbox",
-    map_style=pdk.map_styles.SATELLITE
-)
+#r_tree = pdk.Deck(
+#    tree_heat,
+#    initial_view_state=view,
+#    map_provider="mapbox",
+#    map_style=pdk.map_styles.SATELLITE
+#)
 
 
 st.pydeck_chart(r_prop)
@@ -187,8 +187,8 @@ st.write("_The elevation of the columns in the above chart indicate the price of
 st.subheader('Police data on shootings in NYC in last year')
 st.pydeck_chart(r_crime)
 
-st.subheader('Tree coverage in the city')
-st.pydeck_chart(r_tree)
+#st.subheader('Tree coverage in the city')
+#st.pydeck_chart(r_tree)
 
 
 
