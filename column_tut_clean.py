@@ -184,8 +184,9 @@ r_crime = pdk.Deck(
 st.pydeck_chart(r_prop)
 st.write("_The elevation of the columns in the above chart indicate the price of the property. The colour gradient indicates how close the nearest metro station is, with darker colours being further away than the lighter pink_")
 
-st.subheader('Police data on shootings in NYC in last year')
-st.pydeck_chart(r_crime)
+with st.expander("Show shootings info"):
+    st.subheader('Police data on shootings in NYC in last year')
+    st.pydeck_chart(r_crime)
 
 #st.subheader('Tree coverage in the city')
 #st.pydeck_chart(r_tree)
