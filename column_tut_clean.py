@@ -104,7 +104,7 @@ column_layer = pdk.Layer(
 )
 
 ## shows tree coverage over the city
- tree_heat = pdk.Layer(
+tree_heat = pdk.Layer(
      "HeatmapLayer",
      data=tree_data,
      #data=new_df,
