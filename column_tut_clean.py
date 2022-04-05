@@ -65,8 +65,8 @@ show_afford = st.checkbox("show only those properties avaialble to your budget")
 if show_afford:
     new_df = new_df[new_df["afford"] == "affordable"]
 
-
-if st.checkbox('Show raw data'):
+    
+with st.expander('Show Raw Data'):
     st.subheader('Raw Data')
     st.write(new_df)
 #print(df.info())
