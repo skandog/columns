@@ -173,7 +173,7 @@ r_crime = pdk.Deck(
     map_style=pdk.map_styles.SATELLITE,
 )
 
- r_tree = pdk.Deck(
+r_tree = pdk.Deck(
      tree_heat,
      initial_view_state=view,
      map_provider="mapbox",
