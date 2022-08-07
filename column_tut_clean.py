@@ -118,22 +118,22 @@ column_layer = pdk.Layer(
 # )
 
 ## not used
-crime_layer = pdk.Layer(
-    "ScatterplotLayer",
-    crime_data,
-    pickable=True,
-    opacity=0.8,
-    stroked=True,
-    filled=True,
-    radius_scale=5,
-    radius_min_pixels=1,
-    radius_max_pixels=100,
-    line_width_min_pixels=1,
-    get_position=["lon", "lat"],
-    get_radius=100,
-    get_fill_color=[255, 140, 0],
-    get_line_color=[0, 0, 0],
-)
+# crime_layer = pdk.Layer(
+#     "ScatterplotLayer",
+#     crime_data,
+#     pickable=True,
+#     opacity=0.8,
+#     stroked=True,
+#     filled=True,
+#     radius_scale=5,
+#     radius_min_pixels=1,
+#     radius_max_pixels=100,
+#     line_width_min_pixels=1,
+#     get_position=["lon", "lat"],
+#     get_radius=100,
+#     get_fill_color=[255, 140, 0],
+#     get_line_color=[0, 0, 0],
+# )
 
 ## shows shooting concentration in the city
 hex_layer = pdk.Layer(
@@ -165,13 +165,13 @@ r_prop = pdk.Deck(
     map_style=pdk.map_styles.SATELLITE,
 )
 
-r_crime = pdk.Deck(
-    hex_layer,
-    initial_view_state=view,
-    tooltip=tooltip,
-    map_provider="mapbox",
-    map_style=pdk.map_styles.SATELLITE,
-)
+# r_crime = pdk.Deck(
+#     hex_layer,
+#     initial_view_state=view,
+#     tooltip=tooltip,
+#     map_provider="mapbox",
+#     map_style=pdk.map_styles.SATELLITE,
+# )
 
 #r_tree = pdk.Deck(
 #     tree_heat,
@@ -184,9 +184,9 @@ r_crime = pdk.Deck(
 st.pydeck_chart(r_prop)
 st.write("_The elevation of the columns in the above chart indicate the price of the property. The colour gradient indicates how close the nearest metro station is, with darker colours being further away than the lighter pink_")
 
-with st.expander("Show shootings info"):
-    st.subheader('Police data on shootings in NYC in last year')
-    st.pydeck_chart(r_crime)
+# with st.expander("Show shootings info"):
+#     st.subheader('Police data on shootings in NYC in last year')
+#     st.pydeck_chart(r_crime)
 
 #st.subheader('Tree coverage in the city')
 #st.pydeck_chart(r_tree)
