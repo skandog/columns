@@ -83,6 +83,7 @@ with st.expander('Show Raw Data'):
 #data = df.to_json(orient='table')
 #print(data)
 
+new_df["price_per_bed_scale"] = new_df["price_per_bed"] / new_df["price_per_bed"].max() * 500
 
 ## initial view state for pydeck
 view = pdk.ViewState(
