@@ -72,12 +72,16 @@ with st.sidebar:
     number = st.number_input("Insert your yearly salary",  min_value=0, step=10000)
     show_afford = st.checkbox("Show only properties within budget")
 
-if number == 0:
-    salary = 0
-else:
-    salary = number
+salary = number if number != 0 else 0
 
-new_df["afford"] = np.where(new_df["price_per_bed"] < (salary/12) * 0.3, "affordable", "not affordable")
+# Create an "afford" column, but don't modify the original DataFrame
+new_df["afford"] = np.where(new_df["price_per_bed"] < (salary / 12) * 0.3, "affordable", "not affordable")
+
+# Only filter when the checkbox is checked
+filtered_df = new_df[new_df["afford"] == "affordable"] if show_afford else new_df
+
+# Ensure map renders with filtered dataset only if necessary
+filtered_df["price_per_bed_scale"] = filtered_df["price_per_bed"] / filtered_df["price_per_bed"].max() * 500
 
 
 if show_afford:
@@ -109,7 +113,7 @@ view = pdk.ViewState(
 ## properties map layer, height dictates cost, colour grade dictates proximity to metro
 column_layer = pdk.Layer(
     "ColumnLayer",
-    data=new_df,
+    data=filtered_df,
     #data=crime_data,
     get_position=["lon", "lat"],
     get_elevation="price_per_bed_scale",
