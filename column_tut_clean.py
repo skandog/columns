@@ -57,7 +57,7 @@ salary = 45000
 ## this allows users to input their salary and filter the visible properties using this field
 with st.sidebar:
     number = st.number_input("Insert your yearly salary",  min_value=0, step=10000)
-    show_afford = st.checkbox("show only those properties avaialble to your budget")
+    show_afford = st.checkbox("Show only properties within budget")
 
 if number == 0:
     salary = 0
