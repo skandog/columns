@@ -6,7 +6,8 @@ import pydeck as pdk
 st.title("Rental properties in New York City")
 
 ## function to get property locations and data
-@st.cache(allow_output_mutation=True)
+# @st.cache(allow_output_mutation=True) ## old implementation
+@st.cache_data
 def get_df():
     new_df = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/nylatlonv4.csv', na_values= '#DIV/0!')
     new_df = new_df.dropna(axis=0, how='any')
@@ -20,7 +21,8 @@ new_df = get_df()
 
 
 ## shootings data
-@st.cache
+# @st.cache
+@st.cache_data
 def get_crime():
     crime_data = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/NYPD_Shooting_Incident_Data__Year_To_Date_Clean.csv')
     crime_data.columns = crime_data.columns.str.lower()
@@ -30,7 +32,8 @@ def get_crime():
 crime_data = get_crime()
 
 ## get tree data (massive file so needs to be cached)
-@st.cache
+# @st.cache
+@st.cache_data
 def get_trees():
     tree_data = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/Forestry_Tree_Points_clean.csv')
     return tree_data
