@@ -155,8 +155,10 @@ hex_layer = pdk.Layer(
 )
 
 tooltip = {
-    "html": "<b>${price_per_bed}</b> per bed, location: {borough} (<b>{lat}, {lon}</b>), <br/> Nearest metro: <b>{nearest_station}</b>, {distance_between}km away",
-    "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
+    "html": "<b>Price per bed:</b> ${price_per_bed}<br/>"
+            "<b>Location:</b> {borough} (<b>{lat}, {lon}</b>)<br/>"
+            "<b>Nearest metro:</b> {nearest_station}, {distance_between} km away",
+    "style": {"background": "rgba(0, 0, 0, 0.7)", "color": "white", "font-family": "Arial"}
 }
 
 
