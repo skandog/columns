@@ -204,11 +204,10 @@ r_prop = pdk.Deck(
 st.pydeck_chart(r_prop)
 st.write("_The elevation of the columns in the above chart indicate the price of the property. The colour gradient indicates how close the nearest metro station is, with darker colours being further away than the lighter pink_")
 
-
-    
-with st.expander('Show Raw Data'):
-    st.subheader('Raw Data')
-    st.write(new_df)
+with st.container():
+    with st.expander('Show Raw Data'):
+        st.subheader('Raw Data')
+        st.write(new_df)
 
 # with st.expander("Show shootings info"):
 #     st.subheader('Police data on shootings in NYC in last year')
