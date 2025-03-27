@@ -51,6 +51,19 @@ COLOR_BREWER_BLUE_SCALE = [
     [32,178,170],
 ]
 
+def get_color(price):
+    if price < 1500:
+        return [34, 139, 34]  # Forest Green
+    elif price < 2500:
+        return [255, 215, 0]  # Gold
+    elif price < 4000:
+        return [255, 140, 0]  # Dark Orange
+    else:
+        return [178, 34, 34]  # Firebrick Red
+
+new_df["color"] = new_df["price_per_bed"].apply(get_color)
+
+
 ## for salary and affordability calcs, start at nyc average of 45k
 salary = 45000
 
@@ -102,9 +115,10 @@ column_layer = pdk.Layer(
     get_elevation="price_per_bed_scale",
     elevation_scale=5,
     radius=100,
+    get_fill_color="color",
     #get_fill_color=[255, 100, 255, 255],
     #get_fill_color=["price_per_bed_scale ", "price_per_bed_scale / 8", "price_per_bed_scale", 255],
-    get_fill_color=["100 / distance_between ", "distance_between", "100 / distance_between", 140],
+    # get_fill_color=["100 / distance_between ", "distance_between", "100 / distance_between", 140],
     pickable=True,
     auto_highlight=True,
 )
@@ -155,8 +169,10 @@ hex_layer = pdk.Layer(
 )
 
 tooltip = {
-    "html": "<b>${price_per_bed}</b> per bed, location: {borough} (<b>{lat}, {lon}</b>), <br/> Nearest metro: <b>{nearest_station}</b>, {distance_between}km away",
-    "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
+    "html": "<b>Price per bed:</b> ${price_per_bed}<br/>"
+            "<b>Location:</b> {borough} (<b>{lat}, {lon}</b>)<br/>"
+            "<b>Nearest metro:</b> {nearest_station}, {distance_between} km away",
+    "style": {"background": "rgba(0, 0, 0, 0.7)", "color": "white", "font-family": "Arial"}
 }
 
 
