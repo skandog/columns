@@ -83,10 +83,6 @@ filtered_df["price_per_bed_scale"] = filtered_df["price_per_bed"] / filtered_df[
 if show_afford:
     new_df = new_df[new_df["afford"] == "affordable"]
 
-    
-with st.expander('Show Raw Data'):
-    st.subheader('Raw Data')
-    st.write(new_df)
 #print(df.info())
 
 
@@ -186,6 +182,12 @@ r_prop = pdk.Deck(
     map_provider="mapbox",
     map_style=pdk.map_styles.SATELLITE,
 )
+
+
+    
+with st.expander('Show Raw Data'):
+    st.subheader('Raw Data')
+    st.write(new_df)
 
 # r_crime = pdk.Deck(
 #     hex_layer,
