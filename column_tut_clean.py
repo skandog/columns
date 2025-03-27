@@ -55,7 +55,10 @@ COLOR_BREWER_BLUE_SCALE = [
 salary = 45000
 
 ## this allows users to input their salary and filter the visible properties using this field
-number = st.number_input("Insert your yearly salary",  min_value=0, step=10000)
+with st.sidebar:
+    number = st.number_input("Insert your yearly salary",  min_value=0, step=10000)
+    show_afford = st.checkbox("show only those properties avaialble to your budget")
+
 if number == 0:
     salary = 0
 else:
@@ -63,7 +66,6 @@ else:
 
 new_df["afford"] = np.where(new_df["price_per_bed"] < (salary/12) * 0.3, "affordable", "not affordable")
 
-show_afford = st.checkbox("show only those properties avaialble to your budget")
 
 if show_afford:
     new_df = new_df[new_df["afford"] == "affordable"]
