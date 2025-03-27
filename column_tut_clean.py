@@ -6,7 +6,6 @@ import pydeck as pdk
 st.title("Rental properties in New York City")
 
 ## function to get property locations and data
-# @st.cache(allow_output_mutation=True) ## old implementation
 @st.cache_data
 def get_df():
     new_df = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/nylatlonv4.csv', na_values= '#DIV/0!')
@@ -21,7 +20,6 @@ new_df = get_df()
 
 
 ## shootings data
-# @st.cache
 @st.cache_data
 def get_crime():
     crime_data = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/NYPD_Shooting_Incident_Data__Year_To_Date_Clean.csv')
@@ -32,14 +30,12 @@ def get_crime():
 crime_data = get_crime()
 
 ## get tree data (massive file so needs to be cached)
-# @st.cache
 @st.cache_data
 def get_trees():
     tree_data = pd.read_csv('https://raw.githubusercontent.com/muumrar/columns/main/Forestry_Tree_Points_clean.csv')
     return tree_data
 
 #tree_data = get_trees()
-
 
 ## colour scale for tree heat map
 COLOR_BREWER_BLUE_SCALE = [
@@ -72,12 +68,16 @@ with st.sidebar:
     number = st.number_input("Insert your yearly salary",  min_value=0, step=10000)
     show_afford = st.checkbox("Show only properties within budget")
 
-if number == 0:
-    salary = 0
-else:
-    salary = number
+salary = number if number != 0 else 0
 
-new_df["afford"] = np.where(new_df["price_per_bed"] < (salary/12) * 0.3, "affordable", "not affordable")
+# Create an "afford" column, but don't modify the original DataFrame
+new_df["afford"] = np.where(new_df["price_per_bed"] < (salary / 12) * 0.3, "affordable", "not affordable")
+
+# Only filter when the checkbox is checked
+filtered_df = new_df[new_df["afford"] == "affordable"] if show_afford else new_df
+
+# Ensure map renders with filtered dataset only if necessary
+filtered_df["price_per_bed_scale"] = filtered_df["price_per_bed"] / filtered_df["price_per_bed"].max() * 500
 
 
 if show_afford:
@@ -109,7 +109,7 @@ view = pdk.ViewState(
 ## properties map layer, height dictates cost, colour grade dictates proximity to metro
 column_layer = pdk.Layer(
     "ColumnLayer",
-    data=new_df,
+    data=filtered_df,
     #data=crime_data,
     get_position=["lon", "lat"],
     get_elevation="price_per_bed_scale",
