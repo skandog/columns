@@ -55,7 +55,7 @@ COLOR_BREWER_BLUE_SCALE = [
 salary = 45000
 
 ## this allows users to input their salary and filter the visible properties using this field
-number = st.number_input("Insert your yearly salary")
+number = st.number_input("Insert your yearly salary",  min_value=0, step=10000)
 if number == 0:
     salary = 0
 else:
